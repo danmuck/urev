@@ -58,6 +58,7 @@ void check_valid_input(int *answers, int index, WINDOW* window) {
             break;
     }
 }
+
     /*
      * Check user entries for a given problem and update status.
      */
@@ -68,6 +69,7 @@ void check_answers(full_problem current, status *stats, WINDOW* window, int stic
         mvwscanw(window, 3, 3,  "%d", &answers[3]);
         check_valid_input(answers, 3, window);
     } else answers[3] = 0;
+
     mvwscanw(window, 3, 7,  "%d", &answers[0]);
     check_valid_input(answers, 0, window);
 
@@ -102,9 +104,10 @@ void check_answers(full_problem current, status *stats, WINDOW* window, int stic
     }
     stats -> total += 1;
 }
+
     /*
      * Print a problem to the ncurses window;
-     * take a process user entries and write files.
+     * take/process user entries and write files.
      */
 void print_problem(status *stats) {
     initscr(); // init ncurses
@@ -123,10 +126,15 @@ void print_problem(status *stats) {
     if (stats -> total >= 96) sticky_bit = TRUE;
     out_prob = generate_full_problem(sticky_bit);
     mvwprintw(win, 1, 1, "      u   g   o\n");
-    mvwprintw(win, 2, 1, "  %c  %s %s %s\n", generate_file_type(), out_prob.problems[0].permission_str, out_prob.problems[1].permission_str, out_prob.problems[2].permission_str);
+    mvwprintw(win, 2, 1, "  %c  %s %s %s\n",
+              generate_file_type(),
+              out_prob.problems[0].permission_str,
+              out_prob.problems[1].permission_str,
+              out_prob.problems[2].permission_str
+              );
 
     // check answers and update to stdscr
-    check_answers(out_prob, stats, win, TRUE);
+    check_answers(out_prob, stats, win, sticky_bit);
     n_print_status(stats);
 
     wrefresh(win);
@@ -142,8 +150,8 @@ int main() {
     status* stats = generate_status();
     stats = read_status_file(stats);
 
-    int session_start = stats->sessions;
-    while (stats->sessions < session_start + 1) {
+    int session_start = stats->session;
+    while (stats->session < session_start + 1) {
         print_problem(stats);
         update_status(stats);
         update_status_file(stats);

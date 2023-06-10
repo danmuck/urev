@@ -26,6 +26,9 @@ problem generate_permissions() {
 
     return new;
 }
+void free_permissions() {
+
+}
 
     /*
      * Generate a new session with all streaks/wrongtally reset.
@@ -42,6 +45,9 @@ session_status* generate_session() {
 
     return new_session;
 }
+void free_session() {
+
+}
 
     /*
      * Generate a new status.
@@ -57,14 +63,16 @@ status* generate_status() {
     new -> wrong = 0;
     new -> wrong_tally = 0;
     new -> total = 0;
-    new -> sessions = 0;
+    new -> session = 0;
     new -> completion = 0;
     new -> timestamp = time(NULL);
     new -> session_info = generate_session();
 
     return new;
 }
+void free_status() {
 
+}
     /*
      * Generate a psuedo-random file type to appear before a problem.
      *

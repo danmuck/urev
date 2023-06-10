@@ -19,7 +19,7 @@ void update_status_file(status* status) {
     fprintf(status_file, "wrong:%d\n", status -> wrong);
     fprintf(status_file, "wrongtally:%d\n", status -> wrong_tally);
     fprintf(status_file, "total:%d\n", status -> total);
-    fprintf(status_file, "session:%d\n", status -> sessions);
+    fprintf(status_file, "session:%d\n", status -> session);
     fprintf(status_file, "completion:%d\n", status -> completion);
     fprintf(status_file, "timestamp:%ld\n", status -> timestamp);
 
@@ -43,25 +43,25 @@ status* read_status_file(status* status) {
         while (fgets(line_buf, sizeof(line_buf), status_file)) {
             switch (line_count) {
                 case 0:
-                    sscanf(line_buf, "score:%d", &status -> score);
+                    sscanf(line_buf, "score:%d", &status->score);
                     break;
                 case 1:
-                    sscanf(line_buf, "wrong:%d", &status -> wrong);
+                    sscanf(line_buf, "wrong:%d", &status->wrong);
                     break;
                 case 2:
-                    sscanf(line_buf, "wrongtally:%d", &status -> wrong_tally);
+                    sscanf(line_buf, "wrongtally:%d", &status->wrong_tally);
                     break;
                 case 3:
-                    sscanf(line_buf, "total:%d", &status -> total);
+                    sscanf(line_buf, "total:%d", &status->total);
                     break;
                 case 4:
-                    sscanf(line_buf, "session:%d", &status -> sessions);
+                    sscanf(line_buf, "session:%d", &status->session);
                     break;
                 case 5:
-                    sscanf(line_buf, "completion:%d", &status -> completion);
+                    sscanf(line_buf, "completion:%d", &status->completion);
                     break;
                 case 6:
-                    sscanf(line_buf, "timestamp:%ld", &status -> timestamp);
+                    sscanf(line_buf, "timestamp:%ld", &status->timestamp);
                     break;
                 default:
                     break;

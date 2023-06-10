@@ -25,7 +25,7 @@ typedef struct {
     int wrong;
     int wrong_tally;
     int total;
-    int sessions;
+    int session;
     int completion;
     time_t timestamp;
     session_status *session_info;
